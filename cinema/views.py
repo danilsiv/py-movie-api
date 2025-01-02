@@ -13,7 +13,7 @@ def movie_list_view(request) -> Response:
         movie_list = Movie.objects.all()
         serializer = MovieSerializer(movie_list, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    else:
+    if request.method == "POST":
         serializer = MovieSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
